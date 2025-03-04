@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     containar:{
         height:40,
         width:'100%',
-        backgroundColor:'black',
+        backgroundColor:'#5252f7',
         marginBottom:10,
         padding:6
     },

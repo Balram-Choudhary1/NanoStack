@@ -16,7 +16,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <StatusBar barStyle={'light-content'}   backgroundColor={"black"}/>
+      <StatusBar barStyle={'light-content'}   backgroundColor={"#5252f7"}/>
       <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false}}>
         <Stack.Screen name="News" component={NewsScreen} />
         <Stack.Screen name="Splash" component={SplashScreen} />

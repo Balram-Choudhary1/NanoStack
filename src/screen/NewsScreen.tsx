@@ -59,6 +59,8 @@ const NewsApp = () => {
     setRefreshing(false);
   };
 
+ 
+
   const renderItem = ({ item }: { item: Article }) => (
     <View style={styles.articleContainer}>
       <Text style={styles.title}>{item.title}</Text>
@@ -143,4 +145,5 @@ export default NewsApp;
 function alert(arg0: string) {
     throw new Error('Function not implemented.');
 }
+
 
