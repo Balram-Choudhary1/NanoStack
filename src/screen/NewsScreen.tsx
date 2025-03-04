@@ -3,6 +3,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { View, Text, FlatList, ActivityIndicator, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Header from '../component/Header';
 
 const API_KEY = 'YOUR_API_KEY';
 const API_URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
@@ -63,9 +64,9 @@ const NewsApp = () => {
       <Text style={styles.title}>{item.title}</Text>
       {item.urlToImage ? <Image source={{ uri: item.urlToImage }} style={styles.image} /> : null}
       <Text style={styles.description}>{item.description}</Text>
-      {/* <TouchableOpacity onPress={() => alert('Open: ' + item.url)}>
+      <TouchableOpacity >
         <Text style={styles.readMore}>Read More</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </View>
   );
 
@@ -73,6 +74,7 @@ const NewsApp = () => {
 
   return (
     <View style={styles.container}>
+      <Header />
       <TextInput
         style={styles.searchBar}
         placeholder="Search news..."
@@ -96,7 +98,6 @@ const NewsApp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
     backgroundColor: '#fff',
   },
   searchBar: {
@@ -106,6 +107,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 10,
+    margin:10
   },
   articleContainer: {
     padding: 10,
@@ -115,20 +117,25 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    marginHorizontal:10
   },
   description: {
     fontSize: 14,
     color: '#666',
+    marginHorizontal:10
   },
   readMore: {
     color: 'blue',
     marginTop: 5,
+    marginHorizontal:10
   },
   image: {
-    width: '100%',
+    width: '93%',
     height: 200,
     borderRadius: 10,
     marginTop: 10,
+    marginHorizontal:10
+    
   },
 });
 
