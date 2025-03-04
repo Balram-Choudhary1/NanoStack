@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, FlatList, ActivityIndicator, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Header from '../component/Header';
 
 const API_KEY = '36456e3684d64096a0cca86796f80154';
 const API_URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
@@ -61,9 +62,6 @@ const NewsScreen = () => {
     <View style={styles.articleContainer}>
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.description}>{item.description}</Text>
-      <TouchableOpacity onPress={() => alert('Open: ' + item.url)}>
-        <Text style={styles.readMore}>Read More</Text>
-      </TouchableOpacity>
     </View>
   );
 
@@ -71,6 +69,7 @@ const NewsScreen = () => {
 
   return (
     <View style={styles.container}>
+     <Header />
       <TextInput
         style={styles.searchBar}
         placeholder="Search news..."
@@ -83,7 +82,7 @@ const NewsScreen = () => {
         renderItem={renderItem}
         onEndReached={loadMoreNews}
         onEndReachedThreshold={0.5}
-        ListFooterComponent={loading ? <ActivityIndicator style={{ marginTop:"100%"}} size="large" color="#000" /> : null}
+        ListFooterComponent={loading ? <ActivityIndicator style={{ marginTop:"100%"}} size="large" color="#5252f7" /> : null}
         refreshing={refreshing}
         onRefresh={onRefresh}
       />
@@ -113,6 +112,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    color:'#5252f7'
   },
   description: {
     fontSize: 14,
@@ -125,7 +125,8 @@ const styles = StyleSheet.create({
 });
 
 export default NewsScreen;
-function alert(arg0: string): void {
+
+function alert(arg0: string) {
     throw new Error('Function not implemented.');
 }
 

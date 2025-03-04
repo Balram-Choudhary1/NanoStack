@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 type RootStackParamList = {
   SplashScreen: undefined;
-  Home: undefined;
+  News: undefined;
 };
 
 const SplashScreen: FC = () => {
@@ -13,7 +13,7 @@ const SplashScreen: FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      return navigation.replace('Home'); 
+      return navigation.replace('News'); 
     }, 2000);
   }, []);
 
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#5252f7',
   },
   text: {
     color: 'white',
