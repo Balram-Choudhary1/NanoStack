@@ -1,11 +1,13 @@
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, TextInput, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import Header from '../component/Header';
 
-const API_KEY = 'YOUR_API_KEY';
+
+const API_KEY = '36456e3684d64096a0cca86796f80154';
 const API_URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${API_KEY}`;
 
 interface Article {
@@ -15,7 +17,7 @@ interface Article {
   url: string;
 }
 
-const NewsApp = () => {
+const NewsScreen = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
@@ -59,14 +61,23 @@ const NewsApp = () => {
     setRefreshing(false);
   };
 
- 
+  const renderSkeleton = () => (
+    <SkeletonPlaceholder>
+      <View style={styles.articleContainer}>
+        <View style={styles.skeletonTitle} />
+        <View style={styles.skeletonImage} />
+        <View style={styles.skeletonText} />
+        <View style={[styles.skeletonText, { width: '60%' }]} />
+      </View>
+    </SkeletonPlaceholder>
+  );
 
   const renderItem = ({ item }: { item: Article }) => (
     <View style={styles.articleContainer}>
       <Text style={styles.title}>{item.title}</Text>
       {item.urlToImage ? <Image source={{ uri: item.urlToImage }} style={styles.image} /> : null}
       <Text style={styles.description}>{item.description}</Text>
-      <TouchableOpacity >
+      <TouchableOpacity>
         <Text style={styles.readMore}>Read More</Text>
       </TouchableOpacity>
     </View>
@@ -83,16 +94,24 @@ const NewsApp = () => {
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
-      <FlatList
-        data={filteredArticles}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={renderItem}
-        onEndReached={loadMoreNews}
-        onEndReachedThreshold={0.5}
-        ListFooterComponent={loading ? <ActivityIndicator size="large" color="#000" /> : null}
-        refreshing={refreshing}
-        onRefresh={onRefresh}
-      />
+      {loading && !articles.length ? (
+        <FlatList
+          data={[1, 2, 3, 4, 5]}
+          keyExtractor={(item) => item.toString()}
+          renderItem={renderSkeleton}
+        />
+      ) : (
+        <FlatList
+          data={filteredArticles}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={renderItem}
+          onEndReached={loadMoreNews}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={loading ? <ActivityIndicator size="large" color="#000" /> : null}
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      )}
     </View>
   );
 };
@@ -109,7 +128,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 10,
-    margin:10
+    margin: 10,
   },
   articleContainer: {
     padding: 10,
@@ -119,31 +138,50 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginHorizontal:10
+    marginHorizontal: 10,
   },
   description: {
     fontSize: 14,
     color: '#666',
-    marginHorizontal:10
+    marginHorizontal: 10,
   },
   readMore: {
     color: 'blue',
     marginTop: 5,
-    marginHorizontal:10
+    marginHorizontal: 10,
   },
   image: {
     width: '93%',
     height: 200,
     borderRadius: 10,
     marginTop: 10,
-    marginHorizontal:10
-    
+    marginHorizontal: 10,
+  },
+  skeletonTitle: {
+    width: '80%',
+    height: 20,
+    borderRadius: 4,
+    backgroundColor: '#ddd',
+    marginBottom: 10,
+  },
+  skeletonImage: {
+    width: '93%',
+    height: 200,
+    borderRadius: 10,
+    backgroundColor: '#ddd',
+    marginBottom: 10,
+  },
+  skeletonText: {
+    width: '100%',
+    height: 15,
+    borderRadius: 4,
+    backgroundColor: '#ddd',
+    marginBottom: 5,
   },
 });
 
-export default NewsApp;
+export default NewsScreen;
+
 function alert(arg0: string) {
     throw new Error('Function not implemented.');
 }
-
-
