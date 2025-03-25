@@ -13,7 +13,7 @@ const SplashScreen: FC = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      return navigation.replace('News'); 
+      return navigation.replace('News');
     }, 2000);
   }, []);
 

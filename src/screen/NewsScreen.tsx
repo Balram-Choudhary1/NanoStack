@@ -67,7 +67,7 @@ const NewsScreen = () => {
         <View style={styles.skeletonTitle} />
         <View style={styles.skeletonImage} />
         <View style={styles.skeletonText} />
-        <View style={[styles.skeletonText, { width: '60%' }]} />
+        <View style={[styles.skeletonText, styles.skeletonTextShort]} />
       </View>
     </SkeletonPlaceholder>
   );
@@ -177,6 +177,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: 'gray',
     marginBottom: 5,
+  },
+  skeletonTextShort: {
+    width: '60%',
   },
 });
 
